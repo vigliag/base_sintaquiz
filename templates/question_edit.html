@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h2>Edit question</h2>
+<form action="{{ url_for('edit_question', id=question.id) }}" method="post" class="add-question">
+  <dl>
+    <dt>Title:
+    <dd><input type="text" size="30" name="title" value="{{question.title}}">
+    <dt>Prompt:
+    <dd><input type="text" size="30" name="prompt" value="{{question.prompt}}">
+    <dt>Text:
+    <dd><textarea id="question_txt" name="text" rows="5" cols="40">{{question.text}}</textarea>
+    <dt>Answer:
+    <dd><textarea name="answer" rows="5" cols="40">{{question.answer}}</textarea>
+    <dd><input type="submit" value="Submit">
+  </dl>
+</form>
+
+<div id="rendered">
+
+</div>
+
+<a id="deletebutton" href="#">delete this question</a>
+
+<script>
+
+window.onload = function(){
+  var question = document.getElementById("question_txt");
+  var r= document.getElementById("rendered");
+
+  function render(){
+    try {
+      var q = JSON.parse(question.value);
+      console.log(q);
+      rendered.innerHTML = "";
+      renderTree(q,r);
+    } catch(e) {
+      rendered.innerHTML = "Error producing the preview " + e;
+    }
+  }
+
+  question.addEventListener("change", render);
+
+  render();
+
+  var deleteButton = document.getElementById("deletebutton");
+  if (deleteButton){
+    deleteButton.addEventListener("click", function(e){
+      e.preventDefault();
+      $.post("{{url_for('delete_question' , id=question.id)}}", function success(){
+        alert("deleted");
+      });
+      window.location = "/admin";
+    })
+  }
+};
+
+</script>
+
+{% endblock %}

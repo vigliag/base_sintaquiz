@@ -2,17 +2,21 @@
 {% block body %}
   {% if question %}
     <h2>{{question.title}}</h2>
-    <pre id="question_txt">
+
+    <pre id="question_txt" style="display:none">
       {{ question.text|safe }}
     </pre>
     <div id="rendered"></div>
-    <h3>{{question.answer}}</h3>
-    {% if preview %}
-      <div id="answer">
-        {{ question.answer|safe }}
-      </div>
-      <a id="deletebutton" href="#">delete this question</a>
-    {% endif %}
+
+    <h3>Prompt:</h3>
+    <p>{{question.prompt}}</p>
+
+    <h3>Answer:</h3>
+
+    <form id="answerForm" class="answer-question">
+      <textarea id="answer_field" name="answer" rows="5" cols="40"></textarea>
+      <input  type="submit" value="Submit">
+    </form>
 
     <script>
 
@@ -29,16 +33,14 @@
           console.log(e);
         }
 
-      document.getElementById("deletebutton").addEventListener("click", function(e){
+      $("#answerForm").submit(function(e){
         e.preventDefault();
-        $.post("{{url_for('delete_question' , id=question.id)}}", function success(){
-          alert("deleted");
+        $.post("{{ url_for('answer_question', id=question.id) }}", {answer: $("#answer_field").val()}, function(data){
+          alert(data);
         });
-        window.location = "/admin";
-      })
+      });
+
     };
-
-
     </script>
 
   {% else %}

@@ -3,18 +3,21 @@
 
   <ul class="questions">
   {% for question in questions %}
-  <li><a href="{{ url_for('preview_question', question_id=question.id)}}">{{question.id}} - {{ question.title }}</a>
+  <li><a href="{{ url_for('edit_question', id=question.id)}}">{{question.id}} - {{ question.title }}</a>
   {% else %}
     <li><em>No entries questions so far</em>
   {% endfor %}
   </ul>
 
+  <h2>Add new question</h2>
   <form action="{{ url_for('add_question') }}" method="post" class="add-question">
     <dl>
       <dt>Title:
       <dd><input type="text" size="30" name="title">
+      <dt>Prompt:
+      <dd><input type="text" size="30" name="prompt">
       <dt>Text:
-      <dd><textarea id="question" name="text" rows="5" cols="40"></textarea>
+      <dd><textarea id="question_txt" name="text" rows="5" cols="40"></textarea>
       <dt>Answer:
       <dd><textarea name="answer" rows="5" cols="40"></textarea>
       <dd><input type="submit" value="Submit">
@@ -28,7 +31,7 @@
   <script>
 
   window.onload = function(){
-    var question = document.getElementById("question");
+    var question = document.getElementById("question_txt");
     var r= document.getElementById("rendered");
 
     function render(){

@@ -1,6 +1,14 @@
 "use strict";
 
-// format '{ "name" : "root", "children" : [ "C1", {"name" : "bb", "children": ["aa"]} ] }'
+// Format
+// {
+//   "name" : "root",
+//   "children" : [
+//      "C1",
+//      { "name" : "bb",
+//        "children": ["aa", "bb"]}
+//     ]
+// }
 
 function createName(content){
   var n = document.createElement("div");
