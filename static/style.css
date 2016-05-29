@@ -19,5 +19,5 @@ h2              { font-size: 1.2em; }
 .error          { background: #F0D6D6; padding: 0.5em; }
 
 .elem {margin-left: 20px; border: 1px solid black; clear: both; display: inline-block; padding: 5px}
-.child {float:left, margin-left: 5px;}
+.child {float:left; margin-left: 5px;}
 .leaf {}
