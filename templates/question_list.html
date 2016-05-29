@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <ul class="questions">
+  {% for question in questions %}
+  <li><a href="{{ url_for('preview_question', question_id=question.id)}}">{{question.id}} - {{ question.title }}</a>
+  {% else %}
+    <li><em>No entries questions so far</em>
+  {% endfor %}
+  </ul>
+
+  <form action="{{ url_for('add_question') }}" method="post" class="add-question">
+    <dl>
+      <dt>Title:
+      <dd><input type="text" size="30" name="title">
+      <dt>Text:
+      <dd><textarea id="question" name="text" rows="5" cols="40"></textarea>
+      <dt>Answer:
+      <dd><textarea name="answer" rows="5" cols="40"></textarea>
+      <dd><input type="submit" value="Submit">
+    </dl>
+  </form>
+
+  <div id="rendered">
+
+  </div>
+
+  <script>
+
+  window.onload = function(){
+    var question = document.getElementById("question");
+    var r= document.getElementById("rendered");
+
+    function render(){
+      try {
+        var q = JSON.parse(question.value);
+        console.log(q);
+        rendered.innerHTML = "";
+        renderTree(q,r);
+      } catch(e) {
+        rendered.innerHTML = "Error producing the preview " + e;
+      }
+    }
+
+    question.addEventListener("change", render);
+
+    render();
+  };
+
+  </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if question %}
+    <h2>{{question.title}}</h2>
+    <pre id="question_txt">
+      {{ question.text|safe }}
+    </pre>
+    <div id="rendered"></div>
+    <h3>{{question.answer}}</h3>
+    {% if preview %}
+      <div id="answer">
+        {{ question.answer|safe }}
+      </div>
+      <a id="deletebutton" href="#">delete this question</a>
+    {% endif %}
+
+    <script>
+
+    window.onload = function(){
+      var question = document.getElementById("question_txt");
+
+        var r = document.getElementById("rendered");
+        try {
+          var q = JSON.parse(question.innerText);
+
+          console.log(q);
+          renderTree(q,r);
+        } catch(e){
+          console.log(e);
+        }
+
+      document.getElementById("deletebutton").addEventListener("click", function(e){
+        e.preventDefault();
+        $.post("{{url_for('delete_question' , id=question.id)}}", function success(){
+          alert("deleted");
+        });
+        window.location = "/admin";
+      })
+    };
+
+
+    </script>
+
+  {% else %}
+  <p>No question found! Ask the administrator to add some</p>
+  {% endif %}
+
+
+{% endblock %}
