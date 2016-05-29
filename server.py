@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # documentazione qui:
 # http://flask.pocoo.org/docs/0.11/tutorial/
 # http://flask.pocoo.org/docs/0.11/quickstart/
