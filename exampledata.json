@@ -1,0 +1,13 @@
+{"name": "S", "children": [
+  {"name": "NP", "children": [
+    {"name": "D", "children": ["the"]},
+    {"name": "N", "children": ["dog"]}
+    ]},
+  {"name": "VP", "children": [
+    {"name": "V", "children": ["ate"]},
+    {"name": "NP", "children": [
+      {"name": "D", "children": ["the"]},
+      {"name": "N", "children": ["bone"]}
+      ]}
+    ]}
+  ]}
